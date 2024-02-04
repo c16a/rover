@@ -1,0 +1,18 @@
+[workspace]
+members = ["agent", "cli"]
+resolver = "2"
+
+[workspace.package]
+authors = ["Chaitanya Munukutla <chaitanya.m61292@gmail.com"]
+edition = "2021"
+license = "MIT"
+
+[workspace.dependencies]
+serde = "1.0.196"
+serde_json = "1.0.113"
+serde_derive = "1.0.196"
+tokio = { version = "1", features = ["full"] }
+
+[profile.release]
+opt-level = 3
+lto = true
