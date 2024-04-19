@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option go_package = "rover/drivers/schemas";
+
+message HealthRequest {
+
+}
+
+message HealthResponse {
+  bool status = 1;
+}
+
+message InfoRequest {
+
+}
+
+message InfoResponse {
+  string name = 1;
+  string version = 2;
+}
+
+service Driver {
+  rpc GetInfo(InfoRequest) returns (InfoResponse);
+  rpc GetHealth(HealthRequest) returns (HealthResponse);
+}

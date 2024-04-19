@@ -1,0 +1,30 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//:rules/go.bzl", "DISTROS", "go_matrix_binary")
+
+go_library(
+    name = "exec_lib",
+    srcs = [
+        "config.go",
+        "handler.go",
+        "main.go",
+    ],
+    importpath = "rover/drivers/exec",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//drivers/schemas:go_grpc",
+        "//utils",
+        "@org_golang_google_grpc//:go_default_library",
+        "@org_uber_go_zap//:zap",
+    ],
+)
+
+go_binary(
+    name = "exec",
+    embed = [":exec_lib"],
+)
+
+go_matrix_binary(
+    name = "exec",
+    distros = DISTROS,
+    embed = [":exec_lib"],
+)

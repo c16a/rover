@@ -1,0 +1,15 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "handlers",
+    srcs = [
+        "info.go",
+    ],
+    importpath = "rover/agent/handlers",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@com_github_pbnjay_memory//:memory",
+        "@com_github_uptrace_bunrouter//:bunrouter",
+        "@org_uber_go_zap//:zap",
+    ],
+)

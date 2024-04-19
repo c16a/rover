@@ -1,0 +1,33 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//:rules/go.bzl", "DISTROS", "go_matrix_binary")
+
+go_library(
+    name = "agent_lib",
+    srcs = [
+        "config.go",
+        "main.go",
+    ],
+    importpath = "rover/agent",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//agent/handlers",
+        "@com_github_prometheus_client_golang//prometheus",
+        "@com_github_prometheus_client_golang//prometheus/collectors",
+        "@com_github_prometheus_client_golang//prometheus/promhttp",
+        "@com_github_uptrace_bunrouter//:bunrouter",
+        "@org_uber_go_zap//:zap",
+    ],
+)
+
+go_binary(
+    name = "agent",
+    embed = [":agent_lib"],
+    pure = "on",
+    visibility = ["//visibility:public"],
+)
+
+go_matrix_binary(
+    name = "agent",
+    distros = DISTROS,
+    embed = [":agent_lib"],
+)

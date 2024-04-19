@@ -1,0 +1,18 @@
+load("@rules_go//proto:def.bzl", "go_grpc_library", "go_proto_library")
+load("@rules_proto//proto:defs.bzl", "proto_library")
+
+proto_library(
+    name = "proto",
+    srcs = ["driver.proto"],
+    visibility = ["//visibility:private"],
+    deps = [],
+)
+
+go_grpc_library(
+    name = "go_grpc",
+    importpath = "rover/drivers/schemas",
+    proto = ":proto",
+    visibility = [
+        "//visibility:public",
+    ],
+)
