@@ -5,16 +5,22 @@ go_library(
     name = "agent_lib",
     srcs = [
         "config.go",
+        "driver.go",
         "main.go",
     ],
     importpath = "rover/agent",
     visibility = ["//visibility:private"],
     deps = [
         "//agent/handlers",
+        "//drivers/schemas:go_grpc",
+        "//utils",
         "@com_github_prometheus_client_golang//prometheus",
         "@com_github_prometheus_client_golang//prometheus/collectors",
         "@com_github_prometheus_client_golang//prometheus/promhttp",
         "@com_github_uptrace_bunrouter//:bunrouter",
+        "@org_golang_google_grpc//:go_default_library",
+        "@org_golang_google_grpc//credentials",
+        "@org_golang_google_grpc//credentials/insecure",
         "@org_uber_go_zap//:zap",
     ],
 )

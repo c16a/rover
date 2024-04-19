@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"net"
 	"rover/drivers/schemas"
@@ -16,6 +17,11 @@ func init() {
 
 func main() {
 	flag.Parse()
+
+	logger, err := setupLogger()
+	if err != nil {
+		panic(err)
+	}
 
 	c, err := utils.ParseJsonFile[Config](configFileName)
 	if err != nil {
@@ -33,5 +39,10 @@ func main() {
 	grpcServer := grpc.NewServer(opts...)
 	schemas.RegisterDriverServer(grpcServer, handler)
 
+	logger.Info("starting driver", zap.String("socketPath", c.SocketPath), zap.String("name", c.Name))
 	grpcServer.Serve(listener)
+}
+
+func setupLogger() (*zap.Logger, error) {
+	return zap.NewProduction()
 }

@@ -6,3 +6,5 @@ bazel-bin
 bazel-out
 bazel-rover
 bazel-testlogs
+
+.data
