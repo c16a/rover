@@ -1,0 +1,15 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "dns",
+    srcs = [
+        "handler.go",
+        "server.go",
+    ],
+    importpath = "rover/agent/dns",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@com_github_miekg_dns//:go_default_library",
+        "@org_uber_go_zap//:zap",
+    ],
+)

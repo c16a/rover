@@ -11,6 +11,7 @@ go_library(
     importpath = "rover/agent",
     visibility = ["//visibility:private"],
     deps = [
+        "//agent/dns",
         "//agent/handlers",
         "//drivers/schemas:go_grpc",
         "//utils",

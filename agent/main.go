@@ -8,6 +8,7 @@ import (
 	"github.com/uptrace/bunrouter"
 	"go.uber.org/zap"
 	"net/http"
+	"rover/agent/dns"
 	"rover/agent/handlers"
 	"rover/utils"
 	"time"
@@ -36,7 +37,7 @@ func main() {
 	setupMetrics(registry)
 
 	go DialDrivers(config, logger)
-
+	go dns.StartDnsServer(logger)
 	startRouter(logger, registry, config)
 }
 
@@ -64,6 +65,6 @@ func startRouter(logger *zap.Logger, registry *prometheus.Registry, config *Conf
 		WriteTimeout: 5 * time.Second,
 		Addr:         config.BindAddr,
 	}
-	logger.Info("Starting server")
+	logger.Info("starting agent")
 	logger.Error("failed to start server", zap.Error(srv.ListenAndServe()))
 }

@@ -1,6 +1,6 @@
 {
   "lockFileVersion": 6,
-  "moduleFileHash": "16b341e4931abf2ca498b76c61e635c0abee3ff7e4d9c406947c782f568a9802",
+  "moduleFileHash": "c2e021ed798ac5cbce4e46bb072b4eae7f38551921bb1a346ae9a8ba12e9fb7b",
   "flags": {
     "cmdRegistries": [
       "https://bcr.bazel.build/"
@@ -62,6 +62,7 @@
             "column": 24
           },
           "imports": {
+            "com_github_miekg_dns": "com_github_miekg_dns",
             "com_github_pbnjay_memory": "com_github_pbnjay_memory",
             "com_github_prometheus_client_golang": "com_github_prometheus_client_golang",
             "com_github_uptrace_bunrouter": "com_github_uptrace_bunrouter",
