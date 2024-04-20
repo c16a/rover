@@ -1,0 +1,30 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//:rules/go.bzl", "DISTROS", "go_matrix_binary")
+
+go_library(
+    name = "jre_lib",
+    srcs = [
+        "config.go",
+        "handler.go",
+        "main.go",
+    ],
+    importpath = "rover/drivers/jre",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//drivers/schemas:go_grpc",
+        "//utils",
+        "@org_golang_google_grpc//:go_default_library",
+        "@org_uber_go_zap//:zap",
+    ],
+)
+
+go_binary(
+    name = "jre",
+    embed = [":jre_lib"],
+)
+
+go_matrix_binary(
+    name = "jre",
+    distros = DISTROS,
+    embed = [":jre_lib"],
+)

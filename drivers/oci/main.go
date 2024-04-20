@@ -37,7 +37,7 @@ func main() {
 	}
 	var opts []grpc.ServerOption
 
-	handler := NewHandler()
+	handler := NewHandler(c)
 
 	grpcServer := grpc.NewServer(opts...)
 	schemas.RegisterDriverServer(grpcServer, handler)

@@ -1,0 +1,30 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//:rules/go.bzl", "DISTROS", "go_matrix_binary")
+
+go_library(
+    name = "oci_lib",
+    srcs = [
+        "config.go",
+        "handler.go",
+        "main.go",
+    ],
+    importpath = "rover/drivers/oci",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//drivers/schemas:go_grpc",
+        "//utils",
+        "@org_golang_google_grpc//:go_default_library",
+        "@org_uber_go_zap//:zap",
+    ],
+)
+
+go_binary(
+    name = "oci",
+    embed = [":oci_lib"],
+)
+
+go_matrix_binary(
+    name = "oci",
+    distros = DISTROS,
+    embed = [":oci_lib"],
+)
